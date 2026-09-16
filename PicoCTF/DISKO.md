@@ -65,6 +65,10 @@ Had some issues with the naming conventions since I have a same file name. But o
 ![DISKO4 hi](/Images/DISKO4%20CTF/DISKO4_6.png)
 
 ## DISKO4 Flag 🚩
+<details>
+    <summary>Flag</summary>
 
->!`picoCTF{d3l_d0n7_h1d3_w3ll_c2fcb641}`!<
+    picoCTF{d3l_d0n7_h1d3_w3ll_c2fcb641}
+
+</details>
 
