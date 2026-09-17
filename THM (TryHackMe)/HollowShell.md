@@ -68,5 +68,72 @@ With this info I tried doing a Json Injection by putting some bash commands with
 
 Without any options left within my knowledge I decided to do some reseach on some exploits related to .json files and python script execution related to .json files. 
 
+During my research I came accross a vunrability which its use case was similar to the CTF which is called 'ZipSlip' essentially what this does it allows someone to write or overwrite files outside the target leading to a remote command execution upon extraction which is perfect for this CTF.
+
+### How a 'Zip Slip' Works 
+
+- Uses an archive where file names directory traversal methods like ../../
+
+- When the app extracts the zip file it combines the 'directory path' file name from the archive without checking if the result escapes the target folder.
+
+- with the file name being a file traversal methods the system reads it like instructions and puts the file on the said file path.
+
+With this it gave me the idea of using this vunrability to put files where I want in the system. When reading the description of the page it says "A shell may include optional automation hooks" this tells me there is a folder named "hooks" within the system that has automation/cron job running in there executing files.
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_10.2.png)
+
+First I made a python script that reads and zips files in my case the shell.json file and the python script which I will zip slip to the hooks folder by using the directory naming method '../'. 
+
+Why did I make a custom zip script? To put it simply when I tried zipping it normally with the zip command it just auto changed the name of the file to 'hooks/pickup.py' this is probably a security feature of the zip command so I made this instead.
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_10.1.png)
+
+Next was to make the actual script to be executed, since our goal was to open a reverse SSH shell this script exploits the automation in the hooks folder to basically tell the computer to create a network socket with the IPv4/TCP connection and hand me a shell by connecting to my IP and port 1234. 
+
+Next it streams redirection using the loop. as linux every open channel for reading and writing has a file descriptor. By default it starts with 3 channels 
+
+- 0 standard input/stdin which gets inputs
+- 1 standard output/stdout which displays text output on the screen
+- 2 standard error/stderr displays error
+
+So this loops helps to find the internal file descriptor number to allow the reverse shell to display on the attacker screen in my case my linux terminal.
+
+Then the last line is just to spawn the reverse shell by calling /bin/bash
+
+### 4. Setting up the exploit and exploring the shell
+
+Now all I need is to listen for the script when the automation runs it when I upload the zip file. To do this I set up a net cat to listen for it my go to command line for nc -lvnp. A quick and simple listener to listen, notify, look at numeric IPs and the specific port.
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_12.png)
+
+Next is to zip the payload script, check the contents and send it over to the website.
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_13.png)
+
+Once sent I waited for a little since cron jobs repeat in intervals so I came back after a minute to check my listener and I was able to get a reverse shell now knowing THM their flags are usually hidden in the homes folder so I beelined towards the home directory and found a folder named 'roomservice' where the flag text file was and got the flag!
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_14.png)
+
+![HollowShell](/Images/HollowShell%20CTF/HollowShell_final.png)
+
+## Flag 🚩
+<details>
+    <summary>Flag</summary>
+
+    THM{z1p_sl1pp3d_1nt0_a_sh3ll}
+
+</details>
+
+## What I learned 
+This CTF showed me that a small mistake like leaving a comment in the system can lead to an attacker having access to a system. Overall was a pretty fun experience would do it again.
+
+Knowledge Gained:
+- File Descriptors
+- Zip Slipping exploitation
+- Creating a reverse shell using a python script
+- Web Enumeration
 
 
+
+
+<sub>Done on 17/9/26</sub>
