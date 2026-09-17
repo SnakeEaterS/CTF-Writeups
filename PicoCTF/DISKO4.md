@@ -48,7 +48,7 @@ I found that using the fls command which is part of the sleuthkit a list of comm
 
 ![DISKO4 hi](/Images/DISKO4%20CTF/DISKO4_4.png)
 
-by using -r & -d which searches the entire disk imagae and all its subdirectories to find any deleted files I managed to find 1 deleted directory and 1 deleted .gz file along with their respective inode number/record number which is useful for later.
+by using -r & -d which searches the entire disk image and all its subdirectories to find any deleted files I managed to find 1 deleted directory and 1 deleted .gz file along with their respective inode number/record number which is useful for later.
 
 Next is some how extracting the deleted files. Thankfully the sleuthkit has a command just for that by using the icat command which extracts files based on its inode/record number then reads its corresponding metadata to reconstruct the file. Downsides to this is fragmenting large/frequently modified files cant be reconstructed with this command as they are usually scattered across different sections of the drive rather than stored in one continuous piece.
 
