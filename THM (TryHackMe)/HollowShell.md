@@ -130,6 +130,8 @@ This CTF showed me that a small mistake like leaving a comment in the system can
 Knowledge Gained:
 - File Descriptors
 - Zip Slipping exploitation
+- Vunrability Exploration
+- Exploit Exploration/Creation
 - Creating a reverse shell using a python script
 - Web Enumeration
 
