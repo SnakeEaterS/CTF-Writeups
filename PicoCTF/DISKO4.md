@@ -29,14 +29,14 @@ This is what it contains:
 
 ### 3. Searching the contents
 
-Skimming through the files mostly the APT and dpkg.log files it seems the flag file is burried in massive ammounts of software purges as greping "Remove" shows alot of tools/software being removed.
+Skimming through the files mostly the APT and dpkg.log files it seems the flag file is buried in massive amounts of software purges as greping "Remove" shows a lot of tools/software being removed.
 
 This is supported by reading the apt history logs where the user had ran a command to remove a bunch of software and tools.
 
 ![DISKO4 hi](/Images/DISKO4%20CTF/DISKO4_3.2.png)
 ![DISKO4 hi](/Images/DISKO4%20CTF/DISKO4_3.3.png)
 
-After looking abit more to find some low-level file removal logs I was not able to find anything related to the CTF.
+After looking a bit more to find some low-level file removal logs I was not able to find anything related to the CTF.
 
 But if they gave the disk image that means the file removal was done within the image or at least within the logs folder.
 
@@ -52,7 +52,7 @@ by using -r & -d which searches the entire disk image and all its subdirectories
 
 Next is some how extracting the deleted files. Thankfully the sleuthkit has a command just for that by using the icat command which extracts files based on its inode/record number then reads its corresponding metadata to reconstruct the file. Downsides to this is fragmenting large/frequently modified files cant be reconstructed with this command as they are usually scattered across different sections of the drive rather than stored in one continuous piece.
 
-Using this info I started extracting the deleted files I started with the directory but got back a error which says "Error recovering deleted file (Invaild address in run (Too Large): 204800)" Probably ran into the issue of fragmenting since its a directory and has multiple files within it making hard to reconstruct.
+Using this info I started extracting the deleted files I started with the directory but got back a error which says "Error recovering deleted file (Invalid address in run (Too Large): 204800)" Probably ran into the issue of fragmenting since its a directory and has multiple files within it making hard to reconstruct.
 
 ![DISKO4 hi](/Images/DISKO4%20CTF/DISKO4_5.png)
 

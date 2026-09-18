@@ -21,7 +21,7 @@ A little more context on what the options are.
 
 -sC is basically a default scan to find and check if the web ports commonly (443/80), SMB Ports Commonly (445) and SSH Ports (22).
 
--sV Communicates with the port to see what software and verson is running on it to send back info to the user.
+-sV Communicates with the port to see what software and version is running on it to send back info to the user.
 
 -oN Just for me to put the output into a txt file for reference.
 
@@ -39,7 +39,7 @@ First thing I tried is to do the classic admin/admin user and password. But it d
 
 ![HollowShell](/Images/HollowShell%20CTF/HollowShell_5.png)
 
-Using the given credentials I was able to get into a file submission page, more specifically a zip file uploader. In the description there are a number of files which are vaild to be used in the zip file and the zip file must contain the file "shell.json"
+Using the given credentials I was able to get into a file submission page, more specifically a zip file uploader. In the description there are a number of files which are valid to be used in the zip file and the zip file must contain the file "shell.json"
 
 ![HollowShell](/Images/HollowShell%20CTF/HollowShell_6.png)
 
@@ -62,13 +62,13 @@ After messing around with the shell.json code I was able to get the supposed jso
 
 ![HollowShell](/Images/HollowShell%20CTF/HollowShell_9.png)
 
-### 3.Finding the exploit/vunrability
+### 3.Finding the exploit/vulnerability
 
 With this info I tried doing a Json Injection by putting some bash commands within the shell json in hopes of opening a reverse shell. But it did not work it as It would either just print the output on the name or within the given file directory.
 
-Without any options left within my knowledge I decided to do some reseach on some exploits related to .json files and python script execution related to .json files. 
+Without any options left within my knowledge I decided to do some research on some exploits related to .json files and python script execution related to .json files. 
 
-During my research I came accross a vunrability which its use case was similar to the CTF which is called 'ZipSlip' essentially what this does it allows someone to write or overwrite files outside the target leading to a remote command execution upon extraction which is perfect for this CTF.
+During my research I came across a vulnerability which its use case was similar to the CTF which is called 'ZipSlip' essentially what this does it allows someone to write or overwrite files outside the target leading to a remote command execution upon extraction which is perfect for this CTF.
 
 ### How a 'Zip Slip' Works 
 
@@ -78,7 +78,7 @@ During my research I came accross a vunrability which its use case was similar t
 
 - with the file name being a file traversal methods the system reads it like instructions and puts the file on the said file path.
 
-With this it gave me the idea of using this vunrability to put files where I want in the system. When reading the description of the page it says "A shell may include optional automation hooks" this tells me there is a folder named "hooks" within the system that has automation/cron job running in there executing files.
+With this it gave me the idea of using this vulnerability to put files where I want in the system. When reading the description of the page it says "A shell may include optional automation hooks" this tells me there is a folder named "hooks" within the system that has automation/cron job running in there executing files.
 
 ![HollowShell](/Images/HollowShell%20CTF/HollowShell_10.2.png)
 
@@ -130,7 +130,7 @@ This CTF showed me that a small mistake like leaving a comment in the system can
 Knowledge Gained:
 - File Descriptors
 - Zip Slipping exploitation
-- Vunrability Exploration
+- Vulnerability Exploration
 - Exploit Exploration/Creation
 - Creating a reverse shell using a python script
 - Web Enumeration
