@@ -129,10 +129,10 @@ There are multiple ways to prevent falling victim to credential stuffing but the
 A key take away from this CTF is to have security measures for different accounts. It not only ensures safety but also minimizes the risk and damages attackers can cause as they can potentially break into multiple accounts which share the same password.
 
 Skills Practiced:
--python scripting
--shell commands
--web exploitation
--shell exploitation
+- python scripting
+- shell commands
+- web exploitation
+- shell exploitation
 
 <sub>Done on 19/9/26</sub>
 
