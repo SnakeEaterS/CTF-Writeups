@@ -107,14 +107,33 @@ After waiting for about 2-3 minutes I was able to get a hit on a account which g
 
 </details>
 
+## Prevention 🔐 (User based)
+
+There are multiple ways to prevent falling victim to credential stuffing but there are 3 key ways I would do it.
+
+1. Use Multi-Factor authentication (2FA)
+   -  having 2FA on all your accounts prevents attackers from doing single action logins on your account. 2FA by using email, phone number or Authenticator app (Most secure) presents the attacker with another prompt to have a single time use code to enter the account even with a successful hit using credentials from a data breach.
+   - Google authenticator and Microsoft authenticator are good options.
+
+2. Using Unique passwords across different accounts/password managers
+    - Ensuring you have different passwords across accounts allows the risk/damages from your credentials leaked in a data breach to be minimized to the account with the data breach. This is so one password isn't tied to multiple accounts sure a 2FA can block them but imagine having others access to your accounts and is just one step away from breaching other accounts. 
+    - To help automate/make it easier to perform this process is by using a password manager which helps users generate strong passwords and unique credentials for different sites.
+    - Good list of password managers: https://docs.google.com/spreadsheets/d/1b2zEEU8_YPsgo3nY1BJ72qgLXteP7Yt0_mnlYJ8m0RI
+
+3. Check for expose data.
+    - Usually after a data breach password managers especially google password manager checks several sites to find public credentials on a large data base and cross checks them with your credentials to see if any of them are publicly available. Allowing you to pinpoint which accounts has been compromised and notifying you to change passwords.
+    - Sites you can check: https://haveibeenpwned.com/
+
 ## What I learned
 
-A key take away from this CTF is to have different passwords for different accounts. It not only ensures safety but also minimizes the risk and damages attackers can cause as they can potentially break into multiple accounts which share the same password.
+A key take away from this CTF is to have security measures for different accounts. It not only ensures safety but also minimizes the risk and damages attackers can cause as they can potentially break into multiple accounts which share the same password.
 
 Skills Practiced:
 -python scripting
 -shell commands
 -web exploitation
 -shell exploitation
+
+<sub>Done on 19/9/26</sub>
 
 
