@@ -124,6 +124,35 @@ Once sent I waited for a little since cron jobs repeat in intervals so I came ba
 
 </details>
 
+## Prevention 🔐
+
+### 1. Zip Slips
+The main Vulnerability within this CTF is the exploitation method of Zip Slipping. which stems from having extracted a zip file using custom automation code which trust file names within the archive without validating if the file name is a form of directory traversal "../."
+
+- To prevent this add sanitized extraction paths to the automation code to enforce strict file extraction target destinations within the directory. This is done by checking if  the canonical path of the extracted file starts with the target directory path.
+
+Script section example:
+```
+import os
+
+def safe_extract(target_dir, filename):
+    # Resolve the absolute path
+    resolved_path = os.path.abspath(os.path.join(target_dir, filename))
+
+    # Ensure the destination path stays within the base target directory
+    if not resolved_path.startswith(os.path.abspath(target_dir) + os.sep):
+        raise Exception("Path traversal attempt detected!")
+    return resolved_path
+
+```
+
+- Another way is by having built in security which flags zip files with contents that include symbols at the start indicating a path traversal file name. Explicitly checking for .. elements or updated libraries that auto filter these files.
+
+### 2. Restricted Uploads & Extraction Directories
+
+Usually hackers use path traversal to move payload file 
+
+
 ## What I learned 
 This CTF showed me that a small mistake like leaving a comment in the system can lead to an attacker having access to a system. Overall was a pretty fun experience would do it again.
 
