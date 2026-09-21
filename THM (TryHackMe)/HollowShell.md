@@ -148,9 +148,13 @@ def safe_extract(target_dir, filename):
 
 - Another way is by having built in security which flags zip files with contents that include symbols at the start indicating a path traversal file name. Explicitly checking for .. elements or updated libraries that auto filter these files.
 
-### 2. Restricted Uploads & Extraction Directories
+### 2. System and Network hardening
 
-Usually hackers use path traversal to move payload file 
+This can be done to reduce/minimize the damages that can be done by the hacker.
+
+- Use low privileges accounts for background services and workers which disallows them from using permissions that can modify the system configs or cross read information from other home directories.
+
+- Use stricter entry/exit firewall rules: usually a reverse shell relies on establishing a outbound connection back into the attackers device. Some rules which can be stricter are the egress networking filtering which is to block outbound connections to the server from unusual external ports. Only allow necessary ports like 443 with https to allow for trusted api endpoints. You could also whitelist specific external domains or IP addresses if you need the flexibility instead of limiting it to a singular port.
 
 
 ## What I learned 
