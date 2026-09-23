@@ -67,3 +67,43 @@ The next flag needs us to find the what line is present in the rule's "condition
 ![VPN](/Images/VPN%20CTF/VPN_12.png)
 
 To find this we have to head to kevoreilly's github and into the CAPEv2 repo to find the exact file mentioned in the Yara rules which is  'Lumma' finding this exact file we can check the various commits made with this file and inside the latest commit there is a line with a condition which is our 6th flag.
+
+The next flag is to find the title of the report mentioning this hash. This was a easy find as we can simply go back to the website and press the reports tab to find the title and a link to the report.
+
+![VPN](/Images/VPN%20CTF/VPN_13.png)
+
+Next flag to search for is the name of the team that the author of the malware started collaborating with in early 2024. For this I tried searching his github to find any mentions of a team or group I found some names of groups but it didn't match the flag specifications of 'Early 2024'. The next thing I searched is the report itself and used the ctrl+f search too to find keywords like 'kevoreilly', 'Lumma' and '2024'.
+
+![VPN](/Images/VPN%20CTF/VPN_14.png)
+
+Using the search feature I found what I was looking for the team name of the author's collaboration giving us our 8th flag.
+
+The next thing to search for was a Mexican-based affiliate related to the malware family also uses other infostealers.
+Which mentioned infostealer targets Android systems. To find this we can use the search tool to search keywords like 'mexican' and 'android' which gave us our 9th flag.
+
+![VPN](/Images/VPN%20CTF/VPN_15.png)
+
+The final flag is to find which Mitre ATT&CK sub-technique does AnonRDP align with. using the info mentioned on the related article we can infer that this attack uses some virtual servers to hide locations or hide activities. 
+
+![VPN](/Images/VPN%20CTF/VPN_16.png)
+
+![VPN](/Images/VPN%20CTF/VPN_17.png)
+
+![VPN](/Images/VPN%20CTF/VPN_17.1.png)
+
+![VPN](/Images/VPN%20CTF/VPN_18.png)
+
+Using google search to find some info it gives us 'T1583.003' To double check I searched it on the article itself where it has it listed under the list of Mitre ATT&CK sub-technique used by AnonRDP giving us our final flag completing the CTF.
+
+![VPN](/Images/VPN%20CTF/VPN_19.png)
+
+## What I have learned
+
+This CTF has taught me how to analyze logs and track each domain to build a profile on the attacker using OSINT skills like git hub checking and article reading. It also taught me how to correlate items to different info to find new things about the attack so we can use this situation to build better defenses and prevent any of these attacks from happening in the future.
+
+Skills practiced:
+- Infrastructure Attribution
+- MITRE ATT&CK Mapping
+- IP Metadata Enrichment
+- Pivot Analysis
+- Anomalous Log Detection
