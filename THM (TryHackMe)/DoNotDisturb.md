@@ -84,6 +84,46 @@ Doing this then enumerating to /staff to gain access to the page. where I am gre
 
 Now we can use this to try and open a reverse shell by running a reverse shell RCE in the ejs and listen on a netcat to establish a connection to the ssh and give us access.
 
+### 3. Creating a reverse shell
+
+So what we do now we can set up a nc listening on a free port i opted for port 1234.
+
+![dnd](/Images/dnd%20CTF/dnd_18.png)
+
+Next is to create the script we need to create a connection and spawn a reverse shell. This is called SSTI (Sever side template injection) which happens when a application improperly imbeds unsafe user inputs to the server side.
+
+![dnd](/Images/dnd%20CTF/dnd_19.png)
+
+![dnd](/Images/dnd%20CTF/dnd_20.png)
+
+![dnd](/Images/dnd%20CTF/dnd_21.png)
+
+first attempt was not successful I received a error message it looks like a syntax error since I missed a "')" at the end so I modified the script to fix the syntax error and closing the argument for the exec function.
+
+![dnd](/Images/dnd%20CTF/dnd_22.png)
+
+![dnd](/Images/dnd%20CTF/dnd_23.png)
+
+The next error I received is that 'required is not defined' I didn't know what this meant so I looked it up it seems that EJS does not automatically inherit standard node.js global functions which 'require' is so we need to is add 'process.mainModule.' to require so it can navigate to the mainModule.require and allow the environment to access the modules package folder allowing us to run the require function. In addition to this change I swapped the exec to execSync to force the server to block execution until the command completes.
+
+![dnd](/Images/dnd%20CTF/dnd_24.png)
+
+![dnd](/Images/dnd%20CTF/dnd_25.png)
+
+Doing these changes gives me a reverse shell on the nc listener and now I know the first flag user.txt is usually in /home so I made by way there in the home folder I found that there are 3 users besides root named 'piplinesvc, ubuntu and poolside (us)' looking into the poolside there is a user.txt file which gives us the first flag.
+
+### 3. Getting into the root user
+
+![dnd](/Images/dnd%20CTF/dnd_26.png)
+
+The next flag needs us to look into root folder which we don't have permissions too. I tried checking if we have any perms by using sudo -l but I was prompted that a terminal was needed. To fix this issue we can spawn a terminal by using python and importing pty and using it to spawn a terminal by doing /bin/bash within the spawn function.
+
+I was able to get a terminal but to see user permissions was locked behind a password which I do not have.
+
+![dnd](/Images/dnd%20CTF/dnd_27.png)
+
+Next was to
+
 
 
 
