@@ -122,9 +122,46 @@ I was able to get a terminal but to see user permissions was locked behind a pas
 
 ![dnd](/Images/dnd%20CTF/dnd_27.png)
 
-Next was to
+Next was to check what system processes are running by using ps auxww. Looking at the list one thing stood out was PID 602 '/usr/bin/node --inspect=127.0.0.1:9299 processor.js' ran by piplinesvc. This process tells me that there is a node.js debugger running on port 9229 named 'inspector' if I can connect to this debugger we can execute arbitrary JavaScript code within the context of that process. Next was to see what process.js is so by using ls and searching for process.js I managed to find it tied to pipelinesvc user judging from the script contents I can see that it is a background monitoring script that tracks system performance and its the process hosted on the open debugger which can give us access to a different user in this case pipelinesvc.
 
+I wanted to see if port 9229 was listening so I ran ss -tnlp and curl to check and within the scan port 9229 was actively listening or any other details so that means we can use this as a entry point into user. Another interesting thing about the ss scan was that its on ip 127.0.0.1 which is a localhost ip of the machine the interesting thing about this is that 127.0.0.1 is usually reserved for loop back meaning we cant send anything originating outside the machine to this IP and by default node.js inspector has no built in authentication so we can run this as poolside user on this terminal.
 
+![dnd](/Images/dnd%20CTF/dnd_28.png)
 
+![dnd](/Images/dnd%20CTF/dnd_29.png)
+
+![dnd](/Images/dnd%20CTF/dnd_30.png)
+
+Now we know the general direction we have to go too, we just have to run node inspect 127.0.0.1:9229 which we can connect to and use. It displays a debug prompt waiting for commands telling me it was successfully connected to check we cant just run id we have to use something similar to what we used when created the reverse shell. so we run 'exec (process.mainModule.require('child_process').execSync('id').toString())' to check what ID/user does the debugger use and we can see that we are connected on pipelinesvc which means we successfully gained access to another user. We can also see that pipelinesvc has access to '6(disk)'. This means that we have privileges to read and write raw machine storage drives this can lead us to the root folder without needing root. 
+
+To make it easier for us instead of writing long lines of exec commands we can set up a netcat and we can connect a reverse shell to the listener since we cant sent anything in we can send it outwards so running this from the website wont work instead we need the system to send us the reverse shell by using a RCE to connect to our IP.
+
+We have to modify it a little instead of just using netcat we use busybox netcat this allows us to run the -e prompt as normal netcat wont allow it so busybox allows us to have this option. We then are able to establish a reverse shell with the nc on our side.
+
+![dnd](/Images/dnd%20CTF/dnd_31.png)
+
+![dnd](/Images/dnd%20CTF/dnd_32.png)
+
+![dnd](/Images/dnd%20CTF/dnd_33.png)
+
+![dnd](/Images/dnd%20CTF/dnd_34.png)
+
+Once the nc listener on our side has gotten a connection we are able to use commands as pipelinesvc although I tired to treat this like a normal shell by just cding straight to root it did not work even 'cd ..' would not allow me to traverse back. So remembering we had 6(disk) privilege we are able to do run the command 'lsbk' to show us the raw partitions of the server. scrolling through we can see nvme0n1p1 has 20gb assigned to it so it could mean this is the primary disk drive of the server. Doing a little bit more research on how to traverse in this state i found that we can use debugfs which is a file system debugger and will allow us to traverse within nvme0n1p1 using normal commands. Once in nvme0n1p1 I did the normal ls to see if im actually in the server storage where I found the root folder with the final flag.
+
+![dnd](/Images/dnd%20CTF/dnd_35.png)
+
+![dnd](/Images/dnd%20CTF/dnd_36.png)
+
+![dnd](/Images/dnd%20CTF/dnd_37.png)
+
+## Flags 🚩
+<details>
+    <summary>Flags</summary>
+
+    THM{w4rm_s3ss10n_h1j4ck3d}
+
+    THM{r4w_4cc3ss_w4s_t00_much}
+
+</details>
 
 
