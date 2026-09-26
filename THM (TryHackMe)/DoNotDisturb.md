@@ -167,3 +167,14 @@ Once the nc listener on our side has gotten a connection we are able to use comm
 ## Prevention 🔐
 
 ## What I Learned
+
+This was the hardest challenge I did yet it helped me rely more on researching and figuring out what each phase of the CTF vulnerability is and how do get past them. The reason this was difficult for me was that there was a lot of steps and the patience needed to keep looking for clues and holes within the system. This CTF not only helped me test my skills and knowledge, but it also taught me a valuable lesson on patience.
+
+### Skills Practiced
+- Web Vulnerability Analysis & Exploitation (SSTI)
+- Session Hijacking
+- Network Infrastructure Auditing
+- Environment Pivoting & Lateral Movement
+- Low-Level System Privilege Escalation
+
+<sub>Done on 25/9/26</sub>
