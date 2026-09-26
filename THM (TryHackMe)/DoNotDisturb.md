@@ -166,6 +166,18 @@ Once the nc listener on our side has gotten a connection we are able to use comm
 
 ## Prevention 🔐
 
+### 1. Web app layer enforcing static template rendering
+
+Do not allow passing raw user controlled inputs directly into rendering functions like ejs.render(userInput) within any input mediums. We can instead save template static files on the server itself and pass the user input as its isolated data variable like a string. When the data passes through the template it treats the input as a absolute string completely ignoring any executable tags.
+
+In this case we can completely remove the ejs as I do not think its a necessary functionality needed for the attendant staff as we could just automate the guest booking confirmation and if changes need to be made they can be made by parsing different data to the various variables assigned to the automated message for a change.
+
+### 2. Preventing NoSQL Injections by sanitizing inputs
+
+
+
+
+
 ## What I Learned
 
 This was the hardest challenge I did yet it helped me rely more on researching and figuring out what each phase of the CTF vulnerability is and how do get past them. The reason this was difficult for me was that there was a lot of steps and the patience needed to keep looking for clues and holes within the system. This CTF not only helped me test my skills and knowledge, but it also taught me a valuable lesson on patience.
