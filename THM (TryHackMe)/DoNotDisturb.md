@@ -174,9 +174,11 @@ In this case we can completely remove the ejs as I do not think its a necessary 
 
 ### 2. Preventing NoSQL Injections by sanitizing inputs
 
+We can use a filter that removes any keys with dollar sign ($) or containing a dot (.) from req.body, req.query, or req.params. To do this we can have a gate keeper like express-mongo-sanitize package which helps scan for any symbols that could manipulate the backend.
 
+### 3. Enforce the principle of least security on service users
 
-
+Service accounts should only have  read/write access to their specific application directories using standard file permissions. Giving them extra capabilities without needing them would give attackers a angle of attack on our systems. Doing this would reduce the damages caused and prevent our entire system from being compromised.
 
 ## What I Learned
 
