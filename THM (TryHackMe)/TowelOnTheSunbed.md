@@ -48,7 +48,30 @@ Next thing I did was to scan the ports to see what they have listening and I fou
 
 ### 2. Uncovering the vulnerability
 
+What I wanted to check was the burp suite for any interesting POST/GET request. specifically anything that can either give me ssh access or exploit the reward claim to see the special prize as it is mostly pointing towards that area
 
+Since I already claimed the reward on this account and instead of waiting out the 24 hours I decided to create a new test account for this. First I logged in and claimed the reward to test and view the POST request to find anything exploitable.
 
 ![Towel](/Images/Towel%20CTF/Towel_11.png)
+
+![Towel](/Images/Towel%20CTF/Towel_12.png)
+
+While checking the POST request for the reward claim I could see a connect.id cookie which basically identifies a user's session. This gave me an idea if I could parse another session token into my original post request and claim it on a single account.
+
+![Towel](/Images/Towel%20CTF/Towel_13.png)
+
+![Towel](/Images/Towel%20CTF/Towel_14.png)
+
+![Towel](/Images/Towel%20CTF/Towel_15.png)
+
+![Towel](/Images/Towel%20CTF/Towel_16.png)
+
+Unfortunately it didn't work as it would just claim it for the other user the reason this is the case is I tired doing whats called a session hijacking where I take a user session token and replace it on my browser allowing me to bypass the login and authentication. However, doing this method like this where I just replace the session token in the POST request it would just claim it for that session.
+
+![Towel](/Images/Towel%20CTF/Towel_16.1.png)
+
+![Towel](/Images/Towel%20CTF/Towel_17.png)
+
+
+
 
