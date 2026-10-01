@@ -46,7 +46,7 @@ Next thing I did was to scan the ports to see what they have listening and I fou
 
 ![Towel](/Images/Towel%20CTF/Towel_9.png)
 
-### 2. Uncovering the vulnerability
+### 2. Uncovering the vulnerability and the flag
 
 What I wanted to check was the burp suite for any interesting POST/GET request. specifically anything that can either give me ssh access or exploit the reward claim to see the special prize as it is mostly pointing towards that area
 
@@ -68,10 +68,49 @@ While checking the POST request for the reward claim I could see a connect.id co
 
 Unfortunately it didn't work as it would just claim it for the other user the reason this is the case is I tired doing whats called a session hijacking where I take a user session token and replace it on my browser allowing me to bypass the login and authentication. However, doing this method like this where I just replace the session token in the POST request it would just claim it for that session.
 
+Next thing I wanted to try was a race condition exploit where I will send multiple request at the same time to see how the server reacts to it and if it will process multiple request since it was sent at the same time.
+
+To do this I created a new account and using the console command within the browser I wrote a simple javascript to send 10 http POST request at the same time to /claim API endpoint. 
+
+After sending the command the website processed 5 commands before it managed to keep up with the process and block the other 5 giving me enough points to open the vault and claim the flag.
+
 ![Towel](/Images/Towel%20CTF/Towel_16.1.png)
 
 ![Towel](/Images/Towel%20CTF/Towel_17.png)
 
+## Flag 🚩
+<details>
+    <summary>Flags</summary>
 
+    THM{t0w3l_0n_th3_sunb3d_d0ubl3_sp3nt}
 
+</details>
 
+## Prevention 🔐
+
+To prevent race conditions exploits we can use database locking. This method can stop other request from reading the data until the first request is finished processing.
+
+- Row-Level Locking: Use a database query like SELECT ... FOR UPDATE in SQL.
+
+- Exclusive Access: The database locks the user's account row instantly.
+
+- Queueing: Subsequent concurrent requests are forced to wait in line.
+
+- Safe Checks: The waiting requests will read the updated "already claimed" status.
+
+## What I have learned
+
+This CTF has taught me about race conditions at first I didn't know what a race condition is but after searching and looking at what are the most common vulnerabilities related to a reward claim function I was able to do a race condition exploit.
+
+If I were to do it better I would have just done it on the burp suite repeater tab as It was already there and all I had to do was load up how many times it will send.
+
+I also gained a deeper insight on how to prevent issues like these which would help me in the future if I were to build a app or website.
+
+### Skills Practiced:
+- Web Application Penetration Testing
+- Defensive Engineering & Code Review
+- Reconnaissance
+- Planning
+- Pivoting when something doesn't work
+
+<sub>Documentation done on 1/10/26</sub>
