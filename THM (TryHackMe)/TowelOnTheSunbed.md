@@ -80,7 +80,7 @@ After sending the command the website processed 5 commands before it managed to 
 
 ## Flag 🚩
 <details>
-    <summary>Flags</summary>
+    <summary>Flag</summary>
 
     THM{t0w3l_0n_th3_sunb3d_d0ubl3_sp3nt}
 
